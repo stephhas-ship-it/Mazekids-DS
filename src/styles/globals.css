@@ -1,0 +1,96 @@
+/* globals.css — import this once at your app root (e.g. main.jsx) */
+
+/* Fonts: Gabarito (display) · Nunito Sans (body) · Azeret Mono (codes)
+   · Fredoka (accent — special moments only) */
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700;800;900&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=Azeret+Mono:wght@400;500;600&family=Fredoka:wght@500;600&display=swap');
+
+@import './tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background: var(--surface-0);   /* warm cream canvas */
+    color: var(--text-primary);
+  }
+  /* One focus ring for everything keyboard-reachable — links, sort
+     headers, pagination, the sidebar collapse button. Components with
+     their own ring (Button) simply override this. Only :focus-visible,
+     so mouse clicks stay ring-free. */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-control);
+  }
+  /* Display face (Gabarito) for brand moments only — page titles,
+     hero numbers. Section headings (h3+) stay in the body sans. */
+  h1, h2, .font-display {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+  }
+  /* Accent face (Fredoka) — special alignment moments ONLY:
+     empty states, onboarding headlines, celebration banners,
+     parent-facing greetings. Never on data, tables, or forms. */
+  .font-accent {
+    font-family: var(--font-accent);
+    font-weight: var(--weight-accent);
+  }
+}
+
+/* Numbers: normal font, still column-aligned. No monospace in the UI.
+   Tailwind ships `tabular-nums` too — use whichever is handy:
+   <span className="tabular-nums text-right">{inr(amount)}</span> */
+.tnum { font-variant-numeric: tabular-nums lining-nums; }
+
+/* ---- Rich text content (RichTextEditor + RichTextContent) ----
+   Structure only — headings, lists, links. Fonts/colors come from
+   tokens like everything else. ---- */
+.mk-richtext h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.05em;
+  margin: 0.75em 0 0.25em;
+}
+.mk-richtext p { margin: 0.4em 0; }
+.mk-richtext ul, .mk-richtext ol { margin: 0.4em 0; padding-left: 1.4em; }
+.mk-richtext ul { list-style: disc; }
+.mk-richtext ol { list-style: decimal; }
+.mk-richtext li { margin: 0.15em 0; }
+.mk-richtext a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px; }
+.mk-richtext p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* ---- PRINT — invoices, receipts, fee reports. Force a light,
+   ink-friendly page regardless of the active theme, and strip the
+   app chrome (AppShell's sidebar/top bar carry `print:hidden`). ---- */
+@media print {
+  :root, [data-theme="dark"] {
+    --surface-0: #FFFFFF;
+    --surface-1: #FFFFFF;
+    --surface-2: #FFFFFF;
+    --text-primary: #111111;
+    --text-secondary: #333333;
+    --text-muted: #555555;
+    --border: #CCCCCC;
+    --border-strong: #999999;
+    --shadow-popover: none;
+    --shadow-modal: none;
+  }
+  body {
+    background: #FFFFFF !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact; /* keep status badge tints legible */
+  }
+  .print\:hidden { display: none !important; }
+}

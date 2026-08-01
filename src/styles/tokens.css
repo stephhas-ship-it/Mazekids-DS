@@ -1,0 +1,157 @@
+/* ============================================================
+   MazeKids Design System — tokens.css
+   The single source of truth. App code names ROLES, never hex.
+
+   HOW TO RE-THEME (the only file you touch):
+   1. Edit the values in SECTION 1 — "CHANGE COLORS HERE".
+   2. Everything in SECTION 2 is DERIVED automatically
+      (tints, badge pairs, chart colors) via color-mix().
+   3. Components + Tailwind + charts all read these variables,
+      so the whole product recolors together. No JS edits needed.
+   ============================================================ */
+
+:root {
+  /* ==========================================================
+     SECTION 1 · 🎨 CHANGE COLORS HERE — the brand knobs
+     ========================================================== */
+
+  /* -- Brand scale (primary green). Swap the whole scale to rebrand. -- */
+  --forest-50:#EDF0E5;  --forest-100:#D5DCC2; --forest-200:#AEBB8E;
+  --forest-500:#5F7F3A; --forest-600:#4A6B2E; --forest-700:#3F4F2C;
+  --forest-800:#354329; --forest-900:#2C3623;
+
+  /* -- Canvas & neutrals -- */
+  --cream:#F3EEDF;  --paper:#FBF9F1;  --white:#FFFFFF;
+  --khaki:#D8D1B0;  --sand-border:#E6E0CE;
+
+  /* -- Accents (categories, charts) -- */
+  --gold:#E0A32E;  --terracotta:#C6633B;  --sage:#4F8A78;  --rose:#C77B92;
+
+  /* -- Status base colors. Change ONE hex here and its badge
+        bg/fg pair below updates automatically. -- */
+  --emerald:#1D9E75; --amber:#BA7517; --red:#D8402F; --blue:#2F6DB0;
+
+  /* -- Text greys (warm) -- */
+  --grey-text:#57564A; --grey-muted:#83816F; --grey-tick:#8F8C7D;
+
+  /* ==========================================================
+     SECTION 2 · SEMANTIC — components reference ONLY these.
+     Everything here derives from Section 1. Prefer editing
+     Section 1; override a derived value only when hand-tuning.
+     ========================================================== */
+
+  --color-primary:        var(--forest-800);
+  --color-primary-hover:  var(--forest-900);
+  --color-primary-subtle: var(--forest-50);
+
+  --surface-0: var(--cream);   /* page canvas — the warm frame        */
+  --surface-1: var(--paper);   /* subtle panel                        */
+  --surface-2: var(--white);   /* cards & tables — where DATA lives    */
+
+  --text-primary:   var(--forest-900);
+  --text-secondary: var(--grey-text);
+  --text-muted:     var(--grey-muted);
+
+  --border:        var(--sand-border);
+  --border-strong: var(--khaki);
+
+  /* status — reserved, never decorative. kept distinct from brand green.
+     bg = 12% of the base over the card surface · fg = base deepened.
+     These track the base colors above via color-mix(). */
+  --success: var(--emerald);
+  --success-bg: color-mix(in srgb, var(--success) 12%, var(--surface-2));
+  --success-fg: color-mix(in srgb, var(--success) 72%, black);
+  --warning: var(--amber);
+  --warning-bg: color-mix(in srgb, var(--warning) 12%, var(--surface-2));
+  --warning-fg: color-mix(in srgb, var(--warning) 72%, black);
+  --danger: var(--red);
+  --danger-bg: color-mix(in srgb, var(--danger) 10%, var(--surface-2));
+  --danger-fg: color-mix(in srgb, var(--danger) 72%, black);
+  --info: var(--blue);
+  --info-bg: color-mix(in srgb, var(--info) 10%, var(--surface-2));
+  --info-fg: color-mix(in srgb, var(--info) 68%, black);
+  --neutral-bg: var(--forest-50); --neutral-fg: var(--forest-800);
+
+  /* categorical · fixed order. 6th+ folds to "Other" (khaki) */
+  --cat-1: var(--forest-600); --cat-2: var(--gold);  --cat-3: var(--terracotta);
+  --cat-4: var(--sage);       --cat-5: var(--rose);  --cat-6: var(--khaki);
+
+  /* charts — read by src/charts/theme.js at runtime, so charts
+     recolor with the tokens too. */
+  --chart-series-1: var(--forest-600);
+  --chart-series-1-fill: color-mix(in srgb, var(--forest-600) 12%, transparent);
+  --chart-series-2: var(--gold);
+  --chart-grid: #ECE7D8;
+  --chart-tick: var(--grey-tick);
+  --chart-slice-border: var(--surface-2);
+
+  /* radius */
+  --radius-control:6px; --radius-input:8px; --radius-card:12px; --radius-pill:7px;
+
+  /* elevation — the only two shadows in the system */
+  --shadow-popover: 0 4px 14px rgba(44,54,35,.10);
+  --shadow-modal:   0 8px 30px rgba(44,54,35,.14);
+
+  /* motion */
+  --ease: cubic-bezier(.2,.7,.3,1);
+  --dur-fast:120ms; --dur-med:200ms;
+
+  /* type — playful but workmanlike. Display carries the weight,
+     body stays quiet under data, mono marks IDs/codes, accent
+     (Fredoka) is a SPECIAL font: empty states, onboarding,
+     celebratory moments and parent-facing headers ONLY. */
+  --font-display:'Gabarito', system-ui, -apple-system, sans-serif;
+  --font-body:'Nunito Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:'Azeret Mono', ui-monospace, monospace;
+  --font-accent:'Fredoka', 'Gabarito', system-ui, sans-serif;
+
+  /* type weights — display moments use real weight, never faux-bold */
+  --weight-display:800;      /* page titles (h1/h2)                  */
+  --weight-display-hero:900; /* hero KPI numbers (StatCard values)   */
+  --weight-accent:600;       /* Fredoka reads best at 500–600        */
+}
+
+/* ---- DARK THEME — active. Components read semantic tokens only,
+   so this remap restyles the entire product. Toggle via
+   <html data-theme="dark"> (see lib/theme.jsx).
+   Status pairs re-derive against the dark surface automatically. ---- */
+[data-theme="dark"] {
+  --surface-0:#1E241A; --surface-1:#252C1F; --surface-2:#2A3321;
+  --text-primary:#F3EEDF; --text-secondary:#C9C7B6; --text-muted:#9A987F;
+  --border:#3B4632; --border-strong:#4A5540;
+  --color-primary:#8FB25C; --color-primary-hover:#A2C46E;
+  --color-primary-subtle:#333F27;
+
+  --success-bg: color-mix(in srgb, var(--success) 22%, var(--surface-2));
+  --success-fg: color-mix(in srgb, var(--success) 55%, white);
+  --warning-bg: color-mix(in srgb, var(--warning) 22%, var(--surface-2));
+  --warning-fg: color-mix(in srgb, var(--warning) 55%, white);
+  --danger-bg:  color-mix(in srgb, var(--danger) 20%, var(--surface-2));
+  --danger-fg:  color-mix(in srgb, var(--danger) 55%, white);
+  --info-bg:    color-mix(in srgb, var(--info) 20%, var(--surface-2));
+  --info-fg:    color-mix(in srgb, var(--info) 55%, white);
+  --neutral-bg:#333F27; --neutral-fg:#C9D6AE;
+
+  --chart-series-1: #8FB25C;
+  --chart-series-1-fill: color-mix(in srgb, #8FB25C 15%, transparent);
+  --chart-grid: #3B4632;
+  --chart-tick: #9A987F;
+
+  --shadow-popover: 0 4px 14px rgba(0,0,0,.35);
+  --shadow-modal:   0 8px 30px rgba(0,0,0,.45);
+}
+
+/* ---- REDUCED MOTION — zero the motion tokens and clamp all
+   animation/transition for users who ask for less movement. ---- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-med: 0ms;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

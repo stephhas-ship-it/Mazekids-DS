@@ -1,0 +1,59 @@
+{
+  "name": "@mazekids/design-system",
+  "version": "1.4.0",
+  "author": "Stephen L",
+  "private": true,
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./styles/globals.css": "./src/styles/globals.css",
+    "./styles/tokens.css": "./src/styles/tokens.css",
+    "./tailwind.config": "./tailwind.config.js",
+    "./design-tokens.json": "./design-tokens.json",
+    "./preview": "./src/Preview.jsx",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "lint:tokens": "! grep -rEn '#[0-9A-Fa-f]{3,8}\\b|rgb\\(|bg-black\\b|bg-white\\b' src --include='*.jsx' --include='*.js' | grep -v 'src/charts/theme.js' | grep -v 'tokens are the contract'",
+    "test": "vitest run",
+    "lint": "eslint src tests --ext .js,.jsx --max-warnings 30"
+  },
+  "dependencies": {
+    "@radix-ui/react-checkbox": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-dropdown-menu": "^2.1.2",
+    "@radix-ui/react-popover": "^1.1.23",
+    "@radix-ui/react-radio-group": "^1.2.1",
+    "@radix-ui/react-select": "^2.1.2",
+    "@radix-ui/react-switch": "^1.1.1",
+    "@radix-ui/react-tabs": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.2",
+    "@radix-ui/react-tooltip": "^1.1.4",
+    "@tiptap/extension-link": "^3.29.2",
+    "@tiptap/extension-placeholder": "^3.29.2",
+    "@tiptap/react": "^3.29.2",
+    "@tiptap/starter-kit": "^3.29.2",
+    "chart.js": "^4.4.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.454.0",
+    "tailwind-merge": "^2.5.4"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@testing-library/react": "^16.0.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "jsdom": "^25.0.1",
+    "vitest": "^2.1.4"
+  }
+}

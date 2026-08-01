@@ -1,0 +1,414 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "MazeKids Design System tokens v1.1 \u2014 machine-readable single source of truth. Mirrors src/styles/tokens.css (edit Section 1 there to re-theme; *-bg/*-fg status pairs are DERIVED via color-mix and the values here are resolved approximations). Consumable by Style Dictionary, Figma token plugins, and AI tools.",
+  "$author": "Stephen L",
+  "color": {
+    "brand": {
+      "forest-50": {
+        "$value": "#EDF0E5",
+        "$type": "color"
+      },
+      "forest-100": {
+        "$value": "#D5DCC2",
+        "$type": "color"
+      },
+      "forest-200": {
+        "$value": "#AEBB8E",
+        "$type": "color"
+      },
+      "forest-500": {
+        "$value": "#5F7F3A",
+        "$type": "color"
+      },
+      "forest-600": {
+        "$value": "#4A6B2E",
+        "$type": "color"
+      },
+      "forest-800": {
+        "$value": "#354329",
+        "$type": "color"
+      },
+      "forest-900": {
+        "$value": "#2C3623",
+        "$type": "color"
+      }
+    },
+    "accent": {
+      "gold": {
+        "$value": "#E0A32E",
+        "$type": "color"
+      },
+      "terracotta": {
+        "$value": "#C6633B",
+        "$type": "color"
+      },
+      "sage": {
+        "$value": "#4F8A78",
+        "$type": "color"
+      },
+      "rose": {
+        "$value": "#C77B92",
+        "$type": "color"
+      },
+      "khaki": {
+        "$value": "#D8D1B0",
+        "$type": "color"
+      }
+    },
+    "semantic": {
+      "primary": {
+        "$value": "{color.brand.forest-800}",
+        "$type": "color",
+        "$description": "Primary actions, active nav, links, focus"
+      },
+      "primary-hover": {
+        "$value": "{color.brand.forest-900}",
+        "$type": "color"
+      },
+      "primary-subtle": {
+        "$value": "{color.brand.forest-50}",
+        "$type": "color"
+      },
+      "surface-0": {
+        "$value": "#F3EEDF",
+        "$type": "color",
+        "$description": "Page canvas \u2014 warm cream frame"
+      },
+      "surface-1": {
+        "$value": "#FBF9F1",
+        "$type": "color",
+        "$description": "Subtle panel"
+      },
+      "surface-2": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Cards and tables \u2014 where data lives"
+      },
+      "text-primary": {
+        "$value": "{color.brand.forest-900}",
+        "$type": "color"
+      },
+      "text-secondary": {
+        "$value": "#57564A",
+        "$type": "color"
+      },
+      "text-muted": {
+        "$value": "#83816F",
+        "$type": "color"
+      },
+      "border": {
+        "$value": "#E6E0CE",
+        "$type": "color"
+      },
+      "border-strong": {
+        "$value": "{color.accent.khaki}",
+        "$type": "color"
+      }
+    },
+    "status": {
+      "$description": "Reserved for meaning; never decorative. Every product status maps to one of these five tones.",
+      "success": {
+        "$value": "#1D9E75",
+        "$type": "color"
+      },
+      "success-bg": {
+        "$value": "#E4F3EE",
+        "$type": "color",
+        "$description": "DERIVED: color-mix(in srgb, {color.status.success} 12%, surface-2)"
+      },
+      "success-fg": {
+        "$value": "#157254",
+        "$type": "color",
+        "$description": "DERIVED: color-mix(in srgb, {color.status.success} 72%, black)"
+      },
+      "warning": {
+        "$value": "#BA7517",
+        "$type": "color"
+      },
+      "warning-bg": {
+        "$value": "#F7EEE3",
+        "$type": "color",
+        "$description": "DERIVED: color-mix(in srgb, {color.status.warning} 12%, surface-2)"
+      },
+      "warning-fg": {
+        "$value": "#865411",
+        "$type": "color",
+        "$description": "DERIVED: color-mix(in srgb, {color.status.warning} 72%, black)"
+      },
+      "danger": {
+        "$value": "#D8402F",
+        "$type": "color"
+      },
+      "danger-bg": {
+        "$value": "#FBECEA",
+        "$type": "color",
+        "$description": "DERIVED: color-mix(in srgb, {color.status.danger} 10%, surface-2)"
+      },
+      "danger-fg": {
+        "$value": "#9C2E22",
+        "$type": "color",
+        "$description": "DERIVED: color-mix(in srgb, {color.status.danger} 72%, black)"
+      },
+      "info": {
+        "$value": "#2F6DB0",
+        "$type": "color"
+      },
+      "info-bg": {
+        "$value": "#EAF0F7",
+        "$type": "color",
+        "$description": "DERIVED: color-mix(in srgb, {color.status.info} 10%, surface-2)"
+      },
+      "info-fg": {
+        "$value": "#204A78",
+        "$type": "color",
+        "$description": "DERIVED: color-mix(in srgb, {color.status.info} 68%, black)"
+      }
+    },
+    "categorical": {
+      "$description": "Fixed order for categories/charts. Index 6+ folds to 'Other' (khaki).",
+      "cat-1": {
+        "$value": "{color.brand.forest-600}",
+        "$type": "color"
+      },
+      "cat-2": {
+        "$value": "{color.accent.gold}",
+        "$type": "color"
+      },
+      "cat-3": {
+        "$value": "{color.accent.terracotta}",
+        "$type": "color"
+      },
+      "cat-4": {
+        "$value": "{color.accent.sage}",
+        "$type": "color"
+      },
+      "cat-5": {
+        "$value": "{color.accent.rose}",
+        "$type": "color"
+      },
+      "cat-other": {
+        "$value": "{color.accent.khaki}",
+        "$type": "color"
+      }
+    },
+    "dark": {
+      "$description": "Dark theme semantic remap \u2014 applied via [data-theme=dark].",
+      "surface-0": {
+        "$value": "#1E241A",
+        "$type": "color"
+      },
+      "surface-1": {
+        "$value": "#252C1F",
+        "$type": "color"
+      },
+      "surface-2": {
+        "$value": "#2A3321",
+        "$type": "color"
+      },
+      "text-primary": {
+        "$value": "#F3EEDF",
+        "$type": "color"
+      },
+      "text-secondary": {
+        "$value": "#C9C7B6",
+        "$type": "color"
+      },
+      "text-muted": {
+        "$value": "#9A987F",
+        "$type": "color"
+      },
+      "border": {
+        "$value": "#3B4632",
+        "$type": "color"
+      },
+      "primary": {
+        "$value": "#8FB25C",
+        "$type": "color"
+      },
+      "primary-subtle": {
+        "$value": "#333F27",
+        "$type": "color"
+      }
+    },
+    "chart": {
+      "$description": "Read live by src/charts/theme.js via CSS variables (--chart-*). Change tokens.css and charts recolor. Dark-mode values live in $extensions['mazekids.dark'], mirroring the [data-theme=dark] block.",
+      "series-1": {
+        "$value": "{color.brand.forest-600}",
+        "$type": "color",
+        "$extensions": {
+          "mazekids.dark": "#8FB25C"
+        }
+      },
+      "series-2": {
+        "$value": "{color.accent.gold}",
+        "$type": "color"
+      },
+      "grid": {
+        "$value": "#ECE7D8",
+        "$type": "color",
+        "$extensions": {
+          "mazekids.dark": "#3B4632"
+        }
+      },
+      "tick": {
+        "$value": "#8F8C7D",
+        "$type": "color",
+        "$extensions": {
+          "mazekids.dark": "#9A987F"
+        }
+      },
+      "slice-border": {
+        "$value": "{color.semantic.surface-2}",
+        "$type": "color"
+      }
+    }
+  },
+  "dimension": {
+    "space": {
+      "$description": "4px base scale. Matches Tailwind defaults (1=4px, 2=8px, 3=12px, 4=16px, 6=24px, 8=32px).",
+      "xs": {
+        "$value": "4px",
+        "$type": "dimension"
+      },
+      "sm": {
+        "$value": "8px",
+        "$type": "dimension"
+      },
+      "md": {
+        "$value": "12px",
+        "$type": "dimension"
+      },
+      "lg": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "xl": {
+        "$value": "24px",
+        "$type": "dimension"
+      },
+      "2xl": {
+        "$value": "32px",
+        "$type": "dimension"
+      }
+    },
+    "radius": {
+      "control": {
+        "$value": "6px",
+        "$type": "dimension"
+      },
+      "input": {
+        "$value": "8px",
+        "$type": "dimension"
+      },
+      "card": {
+        "$value": "12px",
+        "$type": "dimension"
+      },
+      "pill": {
+        "$value": "7px",
+        "$type": "dimension",
+        "$description": "Status pills and small tags"
+      }
+    }
+  },
+  "fontFamily": {
+    "display": {
+      "$value": [
+        "Gabarito",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$type": "fontFamily",
+      "$description": "Brand moments only: page titles (h1/h2) at weight 800, hero KPI numbers at 900. Never body copy."
+    },
+    "body": {
+      "$value": [
+        "Nunito Sans",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$type": "fontFamily",
+      "$description": "Everything else. Numbers use font-variant-numeric: tabular-nums \u2014 never monospace."
+    },
+    "mono": {
+      "$value": [
+        "Azeret Mono",
+        "ui-monospace",
+        "monospace"
+      ],
+      "$type": "fontFamily",
+      "$description": "Invoice IDs, receipt numbers, codes. Not for amounts \u2014 amounts stay in body + tabular-nums."
+    },
+    "accent": {
+      "$value": [
+        "Fredoka",
+        "Gabarito",
+        "sans-serif"
+      ],
+      "$type": "fontFamily",
+      "$description": "SPECIAL moments only (weight 500\u2013600): empty states, onboarding headlines, celebration banners, parent-facing greetings. Never on data, tables, or forms."
+    }
+  },
+  "fontWeight": {
+    "$description": "Display weights added in v1.1 (Gabarito). Body stays 400/600.",
+    "display": {
+      "$value": 800,
+      "$type": "fontWeight",
+      "$description": "Page titles (h1/h2)"
+    },
+    "display-hero": {
+      "$value": 900,
+      "$type": "fontWeight",
+      "$description": "Hero KPI numbers (StatCard)"
+    },
+    "accent": {
+      "$value": 600,
+      "$type": "fontWeight",
+      "$description": "Fredoka accent moments"
+    }
+  },
+  "shadow": {
+    "popover": {
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "4px",
+        "blur": "14px",
+        "spread": "0px",
+        "color": "rgba(44,54,35,0.10)"
+      },
+      "$type": "shadow"
+    },
+    "modal": {
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "8px",
+        "blur": "30px",
+        "spread": "0px",
+        "color": "rgba(44,54,35,0.14)"
+      },
+      "$type": "shadow",
+      "$description": "The only two shadows in the system."
+    }
+  },
+  "duration": {
+    "fast": {
+      "$value": "120ms",
+      "$type": "duration"
+    },
+    "medium": {
+      "$value": "200ms",
+      "$type": "duration"
+    }
+  },
+  "cubicBezier": {
+    "ease": {
+      "$value": [
+        0.2,
+        0.7,
+        0.3,
+        1
+      ],
+      "$type": "cubicBezier"
+    }
+  }
+}
