@@ -23,7 +23,7 @@ All colors live in **one place**: `src/styles/tokens.css`, Section 1
   `*-bg` / `*-fg` tint pairs re-derive automatically via `color-mix()` — no
   hand-picking pastels.
 - **Categories & charts:** change an accent (`--gold`, `--terracotta`, …) →
-  `CategoryTag` AND every chart follow, because `src/charts/theme.js` resolves
+  `CategoryTag` AND every chart follow, because `src/utils/chartTheme.js` resolves
   colors from the CSS tokens at render time.
 - **Dark mode:** the `[data-theme="dark"]` block re-derives status pairs
   against the dark surface, so most brand changes need no dark-mode edits.
@@ -40,7 +40,7 @@ Three pieces make it work:
 1. **Tokens** — the `[data-theme="dark"]` block in `src/styles/tokens.css`
    remaps every semantic token to warm dark-olive surfaces. Status badge
    pairs and chart colors re-derive automatically against the dark surface.
-2. **`ThemeProvider`** (`lib/theme.jsx`) — wrap your app root once. It sets
+2. **`ThemeProvider`** (`hooks/useTheme.jsx`) — wrap your app root once. It sets
    `data-theme` on `<html>`, respects the OS preference on first load, and
    persists the user's choice in localStorage.
 3. **`ThemeToggle`** — a ready-made sun/moon button. Drop it into the
@@ -84,15 +84,37 @@ import { Button, DataTable, StatCard, inr, can } from './src';
 
 ---
 
+## Layout
+
+One folder per component, each with its test beside it:
+
+```
+src/
+  components/
+    ui/Button/Button.jsx  Button.test.jsx
+    ui/DataTable/DataTable.jsx  DataTableHeader.jsx  DataTableBody.jsx
+    charts/TrendLine.jsx  MoneyBars.jsx  Donut.jsx  useChart.js
+  hooks/      useTheme.jsx  useToast.js  useDebounce.js
+  utils/      cn.js  format.js  permissions.js  spacing.js  chartTheme.js
+  pages/      Preview/  ExpenseTracker/
+  styles/     tokens.css  globals.css
+  index.js    the public barrel — import from here, never from a deep path
+```
+
+Components are default exports; the barrel re-exports them under the same
+named API consumers already use.
+
+---
+
 ## What's inside
 
 | Area | Files | Contents |
 |---|---|---|
 | Tokens | `styles/tokens.css` | Primitive + semantic color layers, radius, fonts. Dark theme active — `[data-theme="dark"]` remap; toggle via `ThemeProvider` + `ThemeToggle`. |
 | Global CSS | `styles/globals.css` | Tailwind layers, base fonts/surfaces, `.tnum` |
-| Utilities | `lib/format.js` `lib/cn.js` | `inr()` ₹3,86,100 · `formatDate()` dd-mm-yyyy · `formatDateLong()` · `formatRelativeDays()` · class merging |
-| Permissions | `lib/permissions.js` | The 4-role matrix in code: `can(role, permission)` |
-| Core | `Button` `StatusBadge` | CVA variants; the status taxonomy (5 tones, statuses map — never new colors) |
+| Utilities | `utils/format.js` `utils/cn.js` | `inr()` ₹3,86,100 · `formatDate()` dd-mm-yyyy · `formatDateLong()` · `formatRelativeDays()` · class merging |
+| Permissions | `utils/permissions.js` | The 4-role matrix in code: `can(role, permission)` |
+| Core | `Button` `StatusBadge` | Object-map variants + twMerge; the status taxonomy (5 tones, statuses map — never new colors) |
 | Primitives | `Avatar` `CategoryTag` `Skeleton` `EmptyState` | Category colors by fixed index; 6th+ folds to "Other" |
 | Forms | `Field` `Input` `Textarea` `Select` `Checkbox` | Label/help/error states built in; Radix Select & Checkbox |
 | Overlays | `Modal` `Drawer` `Tooltip` `ActionsMenu` `ToastProvider`/`useToast` | All Radix; brand-styled |
@@ -100,8 +122,8 @@ import { Button, DataTable, StatCard, inr, can } from './src';
 | Extras | `ProgressBar` `Switch` `RadioGroup` `Alert` | Program-distribution bars; settings toggles; inline banners on the status taxonomy |
 | Table | `DataTable<T>` `Pagination` | Generic + typed. Gridded warm hairlines, comfortable rows, bulk-select, **sortable columns** (controlled via `sort`/`onSortChange`), right-aligned `tabular-nums` money, loading/empty/error built in |
 | Shell | `AppShell` + `NavItem` | Collapsible sidebar with nested groups, filtered by role permission; top bar |
-| Charts | `charts/theme.js` | The coloring rules as constants + Chart.js helpers |
-| Demo | `DemoExpenseTracker.jsx` | The Expense Tracker rebuilt 100% from system components — your composition reference |
+| Charts | `utils/chartTheme.js` | The coloring rules as constants + Chart.js helpers |
+| Demo | `pages/ExpenseTracker/ExpenseTracker.jsx` | The Expense Tracker rebuilt 100% from system components — your composition reference |
 
 ### Components added in v1.3+
 
@@ -153,7 +175,7 @@ const columns: Column<Expense>[] = [
 <DataTable columns={columns} rows={expenses} rowKey={r => r.id} selectable
   selected={sel} onSelectedChange={setSel} />
 
-// Role gating — matrix lives in lib/permissions.js
+// Role gating — matrix lives in utils/permissions.js
 {can(role, 'approve_expenses') && <Button>Approve</Button>}
 
 // Toasts — wrap the app once in <ToastProvider>
@@ -161,7 +183,7 @@ const toast = useToast();
 toast.push({ title: 'Expense recorded', tone: 'success' });
 ```
 
-See `DemoExpenseTracker.jsx` for the full composition — shell, header, stats,
+See `pages/ExpenseTracker/ExpenseTracker.jsx` for the full composition — shell, header, stats,
 filters, table, modal, and toasts working together.
 
 ---
@@ -184,7 +206,7 @@ filters, table, modal, and toasts working together.
 1. Add nav item(s) with the right `permission` to your `NAV` config.
 2. Compose the screen: `PageHeader` → `StatCard` row → `FilterBar` → `DataTable` → overlays.
 3. Define your row type + `Column<T>[]`; map statuses in `StatusBadge` if new.
-4. Charts pull colors from `charts/theme.js` only.
+4. Charts pull colors from `utils/chartTheme.js` only.
 5. No new CSS unless a genuinely new pattern appears twice (rule of two) —
    then add it here and update the living reference (`mazekids-design-system.html`).
 
@@ -255,13 +277,23 @@ Deliberately deferred (add via rule-of-two when a real screen needs them):
 
 ## Preview page
 
-`src/Preview.jsx` renders **every component in every state** on one page —
+`src/pages/Preview/Preview.jsx` renders **every component in every state** on one page —
 the fastest way to audit a token change or dark mode. Mount it at a dev
 route and hit the theme toggle.
 
 ## Tests
 
-`npm test` runs a smoke suite that renders all 45+ components
-(`tests/smoke.test.jsx`) — it catches broken exports and render crashes.
-CI (`.github/workflows/ci.yml`) runs `lint:tokens` + tests on every PR.
+`npm test` runs 252 tests. Every `ui/` component, hook and util ships its
+test next to it (`Button/Button.test.jsx`), and `tests/barrel.test.jsx`
+asserts the public export list so a rename can't silently break consumers.
+
+`npm run verify` is the full gate, and what CI should run:
+
+```
+lint          eslint, no-console + exhaustive-deps as errors, zero warnings
+lint:names    fails on copy/old/final/temp/backup or a trailing 2 in filenames
+lint:colors   fails on a hex or rgb() in any src/**/*.jsx
+lint:tokens   the stricter existing guard (also catches bg-black / bg-white)
+test          vitest
+```
 

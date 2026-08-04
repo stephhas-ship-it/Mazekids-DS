@@ -1,5 +1,43 @@
 # Changelog — MazeKids Design System
 
+## v2.0.0 — 2026-08-04 (CLAUDE.md conformance)
+
+**Public API unchanged** — every named export from `@mazekids/design-system`
+resolves to the same component. Only internal paths moved.
+
+**Structure.** The 15 grab-bag files under `components/ui/` became one folder
+per component (`ui/Button/Button.jsx`), each a default export re-exported by
+the barrel. `lib/` → `utils/`, `charts/theme.js` → `utils/chartTheme.js`,
+hooks extracted to `hooks/`, demo pages to `pages/`. Every file is now under
+its size cap (largest UI component 195 lines, largest page 159).
+
+**Banned deps removed.** `class-variance-authority` and `clsx` are gone.
+`Button` uses plain object maps; `cn` is `twMerge` alone (it already flattens
+arrays and drops falsy values).
+
+**Tests.** 54 smoke tests → 252. Every component, hook and util has a test
+file beside it; `tests/barrel.test.jsx` pins the public export list.
+
+**Tooling.** `no-console` and `react-hooks/exhaustive-deps` are now errors
+with zero warnings allowed. Added `lint:names` and `lint:colors` guards and
+an `npm run verify` chain.
+
+**Fixes found on the way.**
+- `can()` threw on an unrecognised role; now returns false.
+- `Preview` passed `gap` to `Stack`/`Inline`, which take `space` — the value
+  was silently ignored, and with the new prop spread would have hit the DOM.
+- `ConfirmDialog` hand-rolled its two buttons instead of using `Button`.
+- Toast ids came from `Date.now() + Math.random()`; now a monotonic counter.
+- `DataTable` header cells gained `scope="col"` and sortable-but-unsorted
+  headers now report `aria-sort="none"`; row and select-all checkboxes gained
+  accessible names.
+- `Alert` now uses `role="alert"` for the danger tone, matching `Banner`.
+
+**Removed.** The dev-only `console.warn` guards in `Button` (icon without
+`aria-label`) and `ConfirmDialog` (missing `confirmLabel`) — `no-console` is
+now an error. Those rules are unenforced at runtime; `eslint-plugin-jsx-a11y`
+would restore the first one but needs sign-off as a new dependency.
+
 ## v1.4.0 — 2026-08-01
 Closes the last two MVP gaps:
 **NotificationBell / NotificationList** — Radix Popover inbox with unread

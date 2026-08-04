@@ -1,6 +1,6 @@
 {
   "name": "@mazekids/design-system",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "author": "Stephen L",
   "private": true,
   "main": "src/index.js",
@@ -11,16 +11,19 @@
     "./styles/tokens.css": "./src/styles/tokens.css",
     "./tailwind.config": "./tailwind.config.js",
     "./design-tokens.json": "./design-tokens.json",
-    "./preview": "./src/Preview.jsx",
+    "./preview": "./src/pages/Preview/Preview.jsx",
     "./package.json": "./package.json"
   },
   "sideEffects": [
     "*.css"
   ],
   "scripts": {
-    "lint:tokens": "! grep -rEn '#[0-9A-Fa-f]{3,8}\\b|rgb\\(|bg-black\\b|bg-white\\b' src --include='*.jsx' --include='*.js' | grep -v 'src/charts/theme.js' | grep -v 'tokens are the contract'",
+    "lint:colors": "! grep -rEn '#[0-9A-Fa-f]{3,8}\\b|rgb\\(' src --include='*.jsx'",
+    "lint:tokens": "! grep -rEn '#[0-9A-Fa-f]{3,8}\\b|rgb\\(|bg-black\\b|bg-white\\b' src --include='*.jsx' --include='*.js' | grep -v 'src/utils/chartTheme'",
+    "lint:names": "! find src -type f \\( -iname '*copy*' -o -iname '*old*' -o -iname '*final*' -o -iname '*temp*' -o -iname '*backup*' -o -iname '*2.js' -o -iname '*2.jsx' \\) | grep .",
     "test": "vitest run",
-    "lint": "eslint src tests --ext .js,.jsx --max-warnings 30"
+    "lint": "eslint src --ext .js,.jsx --max-warnings 0",
+    "verify": "npm run lint && npm run lint:names && npm run lint:colors && npm run lint:tokens && npm test"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.2",
@@ -38,8 +41,6 @@
     "@tiptap/react": "^3.29.2",
     "@tiptap/starter-kit": "^3.29.2",
     "chart.js": "^4.4.1",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
     "lucide-react": "^0.454.0",
     "tailwind-merge": "^2.5.4"
   },

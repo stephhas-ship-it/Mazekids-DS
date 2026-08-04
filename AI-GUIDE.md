@@ -18,7 +18,7 @@ clarity beats decoration.
 1. **Never write a raw hex color, rgb(), or named CSS color.** To change any
    color, edit Section 1 of `src/styles/tokens.css` ("CHANGE COLORS HERE") —
    badge tints and chart colors re-derive automatically. Chart colors are
-   resolved from CSS variables at render time by `src/charts/theme.js` —
+   resolved from CSS variables at render time by `src/utils/chartTheme.js` —
    never pass a hex to Chart.js directly. Use token
    classes only: `bg-primary`, `bg-surface-2`, `text-ink`, `text-ink-muted`,
    `border-border`, `bg-success-bg text-success-fg`, `shadow-popover`,
@@ -49,7 +49,7 @@ clarity beats decoration.
    its own); every chart gets `ariaLabel`; icon-only buttons get
    `aria-label`; never convey state by color alone (badge text does the work).
 9. **Roles:** gate features with `can(role, permission)` from
-   `lib/permissions.js`. Never fork a component per role.
+   `utils/permissions.js`. Never fork a component per role.
 10. **Dark mode is free** — it works via tokens. Do not write
     `dark:` Tailwind variants; if something looks wrong in dark, fix the
     token, not the component.
@@ -98,7 +98,7 @@ import {
 </AppShell>
 ```
 
-Full working example: `src/DemoExpenseTracker.jsx` — study it before
+Full working example: `src/pages/ExpenseTracker/ExpenseTracker.jsx` — study it before
 generating any screen.
 
 ## Charts
