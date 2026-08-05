@@ -8,7 +8,7 @@
 
 ## Identity (read once)
 
-MazeKids is an ERP dashboard for preschool/daycare operators in India.
+MazeKids is an ERP dashboard for preschol/daycare operators in India.
 Warm-but-efficient: cream page canvas, data on white cards, forest-green
 brand, soft-serif display type. Operators scan dense tables for hours —
 clarity beats decoration.
